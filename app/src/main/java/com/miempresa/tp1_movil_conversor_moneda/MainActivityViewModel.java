@@ -2,6 +2,7 @@ package com.miempresa.tp1_movil_conversor_moneda;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -31,13 +32,20 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void EurToDoll(String Eur){
-        double eur = Double.parseDouble(Eur);
-        valorF.setValue(eur*1.08);
+        try {
+            double eur = Double.parseDouble(Eur);
+            valorF.setValue(eur * 1.08);
+        }catch (Exception ex){
+            Toast.makeText(context,"El campo euros no puede estar vacio",Toast.LENGTH_LONG).show();
+        }
     }
     public void DollToEur(String Doll){
-        double doll = Double.parseDouble(Doll);
-        valorF.setValue(doll/1.08);
-
+        try {
+            double doll = Double.parseDouble(Doll);
+            valorF.setValue(doll / 1.08);
+        }catch (Exception ex){
+            Toast.makeText(context,"El campo dolares no puede estar vacio",Toast.LENGTH_LONG).show();
+        }
     }
 
 }
