@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
         convertir = findViewById(R.id.btConvertir);
         result = findViewById(R.id.tvResultado);
 
-        RBdToE.setChecked(true);
-        euro.setEnabled(false);
-
+      
         mv.getvalorF().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double res) {
@@ -42,33 +40,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         RBeToD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dolar.setEnabled(true);
-                euro.setEnabled(false);
+                mv.cambiarMoneda(RBeToD.isChecked(), euro, dolar);
             }
         });
 
-        RBdToE.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dolar.setEnabled(false);
-                euro.setEnabled(true);
-            }
-        });
+
 
         convertir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String valor;
-                if(RBdToE.isChecked()){
-                    valor = dolar.getText().toString();
-                    mv.DollToEur(valor);
-                } else if (RBeToD.isChecked()) {
-                    valor = euro.getText().toString();
-                    mv.EurToDoll(valor);
-                }
+               mv.convertir(dolar.getText().toString(), euro.getText().toString(), RBdToE.isChecked());
             }
         });
     }
